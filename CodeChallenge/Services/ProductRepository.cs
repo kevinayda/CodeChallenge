@@ -70,11 +70,14 @@ namespace CodeChallenge.Services
         public bool UpdateProduct(Product product)
         {
             var productEntity = context.Products.Where(c => c.Id == product.Id).FirstOrDefault();
-            productEntity.Id = product.Id;
-            productEntity.Description = product.Description;
-            productEntity.Model = product.Model;
-            productEntity.Brand = product.Brand;
-            return (context.SaveChanges() >= 1);
+            if (productEntity != null)
+            {
+                productEntity.Id = product.Id;
+                productEntity.Description = product.Description;
+                productEntity.Model = product.Model;
+                productEntity.Brand = product.Brand;
+            }
+            return (context.SaveChanges() >= 0);
         }
     }
 }
